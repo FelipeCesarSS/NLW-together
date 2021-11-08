@@ -1,0 +1,738 @@
+/* CSS trabala com cascata, construção um abaixo do outro, 
+ dando valor ao ultimo elemento colocado, com essa regra podendo ser mudada pela specificity, entre outros componentes. */
+
+/***** RESET *********************************************/
+* {
+  /* Seletor universal, corresponde a todas as tags */
+  margin: 0; /* tirando os todos os espaços entre as caixas*/
+  padding: 0; /* tirou todo o preenchimento */
+  box-sizing: border-box; /* muda o box para o pixel ser contado a partir da borda*/
+  /* todo elemento é uma caixa, margin,
+  padding e a propria caixa são paralelos ao mundo real */
+}
+
+ul {
+  list-style: none; /* remove os pontos ao lado da lista */
+}
+
+a {
+  /* seletor de tag */
+  text-decoration: none; /* Tira a formatação do texto */
+}
+
+img {
+  /* seletor de tag */
+  width: 100%;
+  height: auto;
+
+  /* Adaptar a imagem ao 100% */
+}
+
+/***** VARIABLES **************************************/
+:root {
+  /* :root representa o msm que o seletor html, porem com uma specificity maior. Usado para variaveis no css */
+  /* seletor */
+  --header-height: 4.5rem; /* rem = root element, usado para transformar pixel em uma medida relativa, Pixel é estatico. */
+  /* pixel padrao é 16 para fontes do navegador, com o rem alteramos o font-size para se adaptar de forma relativa, utilizando um calculo.
+  16px é o tamanho da fonte do navegador, referenciando com 100%
+  temos 4.5rem q são 16x4.5 = 72, que é o tamanho original da altura */
+  /* Ou seja o root element busca uma referencia relativa para as medidas. 
+  se alterarmos o font-size mudamos todas as medidas do projeto*/
+
+  /* colors */
+  --hue: 159;
+  /*HSL Color mode*/
+  --base-color: hsl(var(--hue) 36% 57%);
+  --base-color-second: hsl(var(--hue) 65% 88%);
+  --base-color-alt: hsl(var(--hue) 57% 33%);
+  --title-color: hsl(var(--hue) 41% 10%);
+  --text-color: hsl(0 0% 46%);
+  --text-color-light: hsl(0 0% 98%);
+  --body-color: hsl(0 0% 98%);
+
+  /* fonts */
+  --title-font-size: 1.875rem;
+  --subtitle-font-size: 1rem;
+
+  --title-font: 'Poppins', sans-serif;
+  --body-font: 'DM Sans', sans-serif;
+}
+/***** BASE *********************************************/
+html {
+  scroll-behavior: smooth; /* rolagem suave */
+}
+
+body {
+  /* seletor de tag */
+  font: 400 1rem var(--body-font); /* define as fontes */
+  color: var(--text-color);
+  background: var(--body-color); /* background quer dizer fundo */
+  -webkit-font-smoothing: antialiased; /* habilita prioridade exclusiva de alguns browsers para smaecer um pouco o texto  */
+}
+
+.title {
+  /* seletor de classe */
+  font: 700 var(--title-font-size) var(--title-font); /* define as fontes */
+  color: var(--title-color);
+  -webkit-font-smoothing: auto;
+}
+
+.button {
+  /* seletor de classe */
+  background: var(--base-color);
+  color: var(--text-color-light);
+  height: 3.5rem;
+  display: inline-flex; /* permite que o button seja flexivel ao display */
+  align-items: center;
+  padding: 0 2rem;
+  border-radius: 0.25rem; /* arredondamento de bordas */
+  font: 500 1rem var(--body-font);
+  transition: background 0.3s; /* transição de cor do botão */
+}
+
+.button:hover {
+  /* seletor de classe, :hover ativa uma animação quando passa o
+  mouse em cima */
+  background: var(--base-color-alt);
+}
+
+.divider-1 {
+  /* seletor de classe, Linhe entre as sections */
+  height: 1px;
+  background: linear-gradient(
+    270deg,
+    hsla(var(--hue), 36%, 57%, 1),
+    hsla(var(--hue), 65%, 88%, 0.34)
+  );
+}
+
+.divider-2 {
+  /* seletor de classe, Linhe entre as sections */
+  height: 1px;
+  background: linear-gradient(
+    270deg,
+    hsla(var(--hue), 65%, 88%, 0.34),
+    hsla(var(--hue), 36%, 57%, 1)
+  );
+}
+/***** LAYOUT *********************************************/
+.container {
+  /* seletor de classe
+  todos os valores container são modificados com essa edição */
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  /* adiciona as margens nos conteiners */
+}
+
+.grid {
+  /* seletor de classe */
+  display: grid;
+  gap: 2rem; /* todo elemento q recebe grid cria um espaço padrão entre 
+  eles */
+}
+
+.section {
+  /* seletor de classe */
+  padding: calc(5rem + var(--header-height)) 0;
+
+  /* cria um espaço padrão entre as sec */
+}
+
+.section .title {
+  margin-bottom: 1rem; /* refere-se as configurações de margem do .title */
+}
+
+.section .subtitle {
+  font-size: var(--subtitle-font-size);
+}
+
+.section header {
+  margin-bottom: 4rem; /* refere-se as configurações de margem do header */
+}
+
+.section header strong {
+  color: var(--base-color); /* muda a cor especifica (strong) na logo */
+}
+
+#header {
+  /* forma de chamar os ids #header se refere ao id='header' */
+  border-bottom: 1px solid #e4e4e4;
+  margin-bottom: 2rem;
+  display: flex;
+
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: var(--body-color);
+}
+
+/***** LOGO *********************************************/
+.logo {
+  /* seletor de classe */
+  font: 700 1.31rem var(--title-font);
+  color: var(--title-color);
+}
+
+.logo span {
+  /* seletor de class especificando a tag */
+  color: var(--base-color);
+}
+
+.logo-alt span {
+  color: var(--body-color);
+}
+
+/***** NAVIGATION ***************************************/
+nav {
+  /* seletor de tag */
+  height: var(--header-height);
+  display: flex; /* coloca um elemento ao lado do outro */
+  align-items: center;
+  justify-content: space-between; /* Didive os elementos para ficar um em cada extremidade */
+  width: 100%;
+}
+
+nav ul li {
+  text-align: center; /* Centraliza o texto q corresponde as tags <ul> <li> */
+}
+
+nav ul li a {
+  transition: color 0.2s; /* com o color a transição é feita apenas na cor */
+  position: relative;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+  /* hover serve para quando o mause é passado em cima */
+  color: var(--base-color);
+}
+
+nav ul li a::after {
+  /* configurações da barra abaixo do texto, que ocorre apos (after) o menu ser aberto */
+  content: '';
+  width: 0%;
+  height: 2px;
+  background: var(--base-color);
+
+  position: absolute;
+  left: 0;
+  bottom: -1.5rem;
+
+  transition: width 0.2s;
+}
+
+nav ul li a:hover::after,
+nav ul li a.active::after {
+  /* apos (after) ser aberto, ao passar o mouse (hover) no texto, a largura de 0 vai passar a ser 100%.. com a transition de 0.2s */
+  width: 100%;
+}
+
+nav .menu {
+  opacity: 0;
+  visibility: hidden;
+  /* opacity faz o texto ficar invisivel, e a visibility faz com q ele desapareça */
+
+  top: -20rem;
+  transition: 0.2s;
+}
+
+nav .menu ul {
+  display: none;
+}
+
+/* MOSTRAR menu */
+
+/* nav.show sem espaços pois o nav vai receber uma classe show */
+nav.show .menu {
+  opacity: 1;
+  visibility: visible;
+
+  background: var(--body-color);
+
+  height: 100vh; /* vh = viewport hight q quer dizer altura, ela esta pegando os 100 pedacinhos do viewport e reproduzindo junto com o nav.show */
+  width: 100vw; /* vw = viewport width, q é largura da viewport */
+
+  position: fixed; /* faz com que o conteudo fique fixo, sem sair do lugar */
+  top: 0;
+  left: 0;
+
+  display: grid; /* O grid disponibiliza novas possibilidades, uma delas é o place-content: center; q joga o texto exatamente ao centro da tela */
+  place-content: center;
+}
+
+nav.show .menu ul {
+  display: grid;
+}
+
+nav.show ul.grid {
+  /* com o nav.show e o ul.grid, o espaçamento so vai acontecer quando abrir o menu (quando o valor show for atribuido */
+  gap: 4rem; /* muda o espaçamento entre os textos */
+}
+
+/* Toggle menu */
+.toggle {
+  /* muda a cor e o tamanho dos icones */
+  color: var(--base-color);
+  font-size: 1.5rem;
+  cursor: pointer; /* muda o cursor do mouse */
+}
+
+nav .icon-close {
+  visibility: hidden;
+  opacity: 0;
+  /* tira a visibilidade do icone X */
+
+  position: absolute;
+  top: -1.5rem;
+  right: 1.5rem;
+  /* posiciona no canto */
+
+  transition: 0.2s;
+}
+
+nav.show div.icon-close {
+  visibility: visible;
+  opacity: 1;
+  top: 1.5rem;
+
+  /* faz com q o icone X apareça somento quando tiver o menu */
+}
+
+/***** HOME *********************************************/
+#home {
+  overflow: hidden; /* ajusta a pagina para não transbordar */
+}
+
+#home .container {
+  /* utiliza o id, junto com a classe container */
+  margin: 0;
+}
+
+#home .image {
+  position: relative; /* faz com q as imagens pertencentes a classe image tenham uma posição relativa*/
+}
+
+#home .image::before {
+  /* cria um elemento fantasma q fica por tras do conteudo */
+  content: '';
+  height: 100%;
+  width: 100%;
+  background: var(--base-color-second);
+  position: absolute;
+  top: -16.8%;
+  left: 16.7%;
+  z-index: 0; /* eixo z */
+}
+
+#home .image img {
+  position: relative;
+  right: 2.93rem;
+}
+
+#home .image img,
+#home .image::before {
+  border-radius: 0.25rem; /* arredonda as bordas */
+}
+
+#home .text {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  text-align: center;
+}
+
+#home .text h2 {
+  margin-bottom: 1rem;
+}
+
+#home .text p {
+  margin-bottom: 2rem;
+  max-width: 100%;
+}
+
+/***** ABOUT *********************************************/
+#about {
+  background: white;
+}
+
+#about .container {
+  /* utiliza o id, junto com a classe container */
+  margin: 0;
+}
+
+#about .image {
+  position: relative;
+}
+
+#about .image::before {
+  /* cria um elemento fantasma q fica por tras do conteudo */
+  content: '';
+  height: 100%;
+  width: 100%;
+  background: var(--base-color-second);
+  position: absolute;
+  top: -8.3%;
+  left: -33%;
+  z-index: 0; /* eixo z */
+}
+
+#about .image img {
+  position: relative;
+}
+
+#about .image img,
+#about .image::before {
+  border-radius: 0.25rem; /* arredonda as bordas */
+}
+
+#about .text {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+}
+/***** SERVICES *****************************************/
+.cards.grid {
+  gap: 1.5rem; /* muda o espaçamento entre os conteudos da classes cards */
+}
+
+.card {
+  padding: 3.625rem 2rem;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
+  border-bottom: 0.25rem solid var(--base-color);
+  border-radius: 0.25rem 0.25rem 0 0;
+  text-align: center;
+
+  /* configura a caixa onde estão os icones e o texto da parte sobre */
+}
+
+.card i {
+  display: block;
+  margin-bottom: 1.5rem;
+  font-size: 5rem;
+  color: var(--base-color);
+
+  /* configura os icones */
+}
+
+.card .title {
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+
+  /* mais configurações sobre os titulos */
+}
+
+/***** TESTIMONIALS *****************************************/
+#testimonials {
+  background: white;
+
+  /* Alterando fundo da seção de Depoimentos*/
+}
+
+#testimonials .container {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+#testimonials header {
+  margin-left: 1.5rem;
+  margin-right: 1.5rem;
+  margin-bottom: 0;
+}
+
+#testimonials blockquote {
+  padding: 2rem;
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 0.25rem;
+}
+
+#testimonials blockquote p {
+  position: relative; /* faz com q a position: absolute seja referente ao blackquote p */
+  text-indent: 1.875rem; /* Identação, espaço para iniciar outro paragrafo */
+  margin-bottom: 1.5rem;
+  color: var(--title-color);
+}
+
+#testimonials blockquote p span {
+  font: 700 2.5rem serif;
+
+  position: absolute; /* position cria um novo espaço acima, e o resto do conteudo fica em baixo*/
+  top: -0.375rem;
+  left: -1.875rem;
+  color: var(--base-color);
+  /* ajustando as aspas */
+}
+
+#testimonials cite {
+  display: flex;
+  align-items: center;
+  font-style: normal;
+}
+
+#testimonials cite img {
+  width: 2rem;
+  height: 2rem;
+  object-fit: cover; /* Pega a imagem dentro da tag img e encaixe cobrindo todo o espaço q estiver ali */
+  clip-path: circle(); /* cria uma mascara na imagem circular */
+  margin-right: 0.5rem;
+}
+
+/* Swiper */
+.swiper-slide {
+  height: auto;
+  padding: 4rem 1rem;
+}
+
+.swiper-pagination-bullet {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--base-color);
+}
+
+/***** CONTACT *****************************************/
+#contact .grid {
+  gap: 4rem;
+  /* Ajusta o espaçamento dos conteudos */
+}
+
+#contact .text p {
+  margin-bottom: 2rem;
+
+  /* muda a margem */
+}
+
+#contact .button i,
+#contact ul li i {
+  font-size: 1.5rem;
+  margin-right: 0.625rem;
+
+  /* configuração do botão, e espaçamento */
+}
+
+#contact ul.grid {
+  gap: 2rem;
+
+  /* Ajusta espaçamento dos conteudos */
+}
+
+#contact ul li {
+  display: flex;
+  align-items: center;
+}
+
+#contact ul li i {
+  color: var(--base-color);
+
+  /* cor do icone */
+}
+
+/***** FOOTER **************************************/
+footer {
+  background: var(--base-color);
+}
+
+footer.section {
+  padding: 4rem 0;
+}
+
+footer .logo {
+  display: inline-block; /* display padrão é inline, com ele não é pssivel colocar margin-bottom, mas com o inline-blcok é possivel*/
+  margin-bottom: 1.5rem;
+  font-size: 1.31rem;
+}
+
+footer .brand p {
+  color: var(--text-color-light);
+  margin-bottom: 0.75rem;
+}
+
+footer i {
+  font-size: 1.5rem;
+  color: var(--text-color-light);
+}
+
+footer .social {
+  grid-auto-flow: column;
+  width: fit-content;
+}
+
+footer .social a {
+  transition: 0.3s;
+  display: inline-block;
+}
+
+footer .social a:hover {
+  transform: translateY(-8px);
+}
+
+/***** BACK TO TOP **************************************/
+.back-to-top {
+  background: var(--base-color);
+  color: var(--text-color-light);
+
+  position: fixed; /* cria um novo contexto */
+  right: 1rem;
+  bottom: 1rem;
+
+  padding: 0.5rem;
+  clip-path: circle(); /* faz com que o elemento tome um formato circular */
+
+  font-size: 1.5rem;
+  line-height: 0;
+
+  visibility: hidden;
+  opacity: 0;
+
+  transition: 0.3s;
+  transform: translateY(
+    100%
+  ); /* transform adiciona nova caracteristicas ao elemento, como o translateY q faz com q o elemento mova-se no eixo Y */
+}
+
+.back-to-top.show {
+  visibility: visible;
+  opacity: 100%;
+  transform: translateY(
+    0
+  ); /* translate 0 faz com q o elemento volte a posição inicial */
+}
+
+/***** MEDIA QUERIES **************************************/
+
+/* Meio de formatar o tamanho do site para variados dispositivos, atraves do @media q permite q mudemos os tamanhos. */
+
+/* extra large decives: 1200 > */
+@media (min-width: 1200px) {
+  /* reusable classes */
+  .container {
+    max-width: 1120px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .section {
+    padding: 10rem 0;
+  }
+
+  .section header,
+  #testimonials header {
+    max-width: 32rem;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .button {
+    height: 3.125rem;
+  }
+
+  /* Navigation */
+  nav .menu {
+    opacity: 1;
+    visibility: visible;
+    top: 0;
+  }
+
+  nav .menu ul {
+    display: flex;
+    gap: 2rem;
+  }
+
+  nav .menu ul li a.title {
+    font: 400 1rem var(--body-font);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav .menu ul li a.title.active {
+    font-weight: bold;
+    -webkit-font-smoothing: auto;
+  }
+
+  nav .icon-menu {
+    display: none;
+  }
+
+  /* Layout */
+  main {
+    margin-top: var(--header-height);
+    /* Cada 16px equivale a 1rem */
+  }
+
+  /* Home */
+  #home .container {
+    grid-auto-flow: column;
+    justify-content: space-between;
+    margin: 0 auto;
+  }
+
+  #home .image {
+    order: 1;
+  }
+
+  #home .text {
+    order: 0;
+    max-width: 24rem;
+    text-align: left;
+  }
+
+  /* About */
+  #about .container {
+    margin: 0 auto;
+    grid-auto-flow: column;
+  }
+
+  /* Services */
+  .cards {
+    grid-template-columns: 1fr 1fr 1fr; /* Pega o espaço e divide em tres frações por iguais */
+  }
+
+  .card {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  /* Testimonials */
+  #testimonials .container {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Contact */
+  #contact .container {
+    grid-auto-flow: column;
+    align-items: center;
+  }
+
+  #contact .text {
+    max-width: 25rem;
+  }
+
+  /* Footer */
+  footer .section {
+    padding: 3.75rem 0;
+  }
+
+  footer .container {
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  footer .logo {
+    font: 2.25rem;
+  }
+}
+
+/* large decives: 1023 > */
+/* large decives: 992 > */
+@media (min-width: 992px) {
+  /* regra */
+  :root {
+    --title-font-size: 2.25rem;
+    --subtitle-font-size: 1.125rem;
+  }
+}
+
+/* medium decives: 767 > */
